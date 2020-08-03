@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout', {
     useCreateIndex: true,
 });
 
-const clientRoutes = require('./routes/client-routes');
+const clientRoutes = require('./Develop/routes/client-routes');
 app.use(clientRoutes);
 
 app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
