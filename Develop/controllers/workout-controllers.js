@@ -1,32 +1,29 @@
-const Workout = require('../models/user');
+const db = require('../models/user');
 
 module.exports = {
-    newWorkout: async (req, res) => {
-        Workout.create(req.body)
+    newWorkout: (req, res) => {
+        db.WorkoutLog.create(req.body)
             .then((results) => res.send(results))
+        results.save()
             .catch((err) => res.send(err));
     },
 
     getWorkout: async (req, res) => {
-        !req.query.id
-            ? Workout.find({})
-                .then((allWorkouts) => res.send(allWorkouts))
-                .catch((err) => res.send(err));
+        db.WorkoutLog.find({})
+            .then((allWorkouts) => res.send(allWorkouts))
+            .catch((err) => res.send(err))
     },
 
     addWorkout: async (req, res) => {
         try {
-            const workout = await Workout.findById(req.params.id);
-            workout.addWorkout.push(req.body);
+            const workout = await db.WorkoutLog.findById(req.params.id);
+            workout.excercises.push(req.body);
 
-            let setDuration = 0;
-            await workout.workoutSet.forEach((workoutSet) => {
-                setDuration += workoutSet.duration
-            });
+            workout.totalDuration += req.body.duration;
 
-            workout.setDuration = setDuration;
-            await workout.save();
-            res.send(workout);
+            await workout.save()
+            res.send(workout)
+
         } catch (err) {
             res.send(err);
         }
