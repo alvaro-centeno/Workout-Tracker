@@ -28,5 +28,13 @@ module.exports = {
             res.send(err);
         }
     },
+    getRange: async (req, res) => {
+        try {
+            const Range = await db.Workout.find({})
+            res.send(Range)
+        } catch (err) {
+            res.send(err)
+        }
+    }
 
 };
