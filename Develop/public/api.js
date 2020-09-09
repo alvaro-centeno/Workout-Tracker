@@ -40,3 +40,4 @@ const API = {
 
     return json;
   },
+}
