@@ -1,16 +1,27 @@
 const router = require('express').Router();
-const { newWorkout,
-    getWorkout,
-    addWorkout,
-    getRange,
-} = require('../controllers/workout-controllers');
+const workoutController = require('../controllers/workout-controllers');
 
-router.post('/api/workouts', newWorkout);
+router
+    .route('/api/workouts')
+    .get(workoutController.getWorkout)
+    .post(workoutController.newWorkout)
 
-router.get('/api/workouts', getWorkout);
-router.get('/api/workouts/range', getRange)
+router.put('/api/workouts/:id', workoutController.addWorkout)
+router.get('/api.workouts/range', workoutController.getRange)
 
-router.put('/api/workouts/:id', addWorkout);
+
+// const { newWorkout,
+//     getWorkout,
+//     addWorkout,
+//     getRange,
+// } = require('../controllers/workout-controllers');
+
+// router.post('/api/workouts', newWorkout);
+
+// router.get('/api/workouts', getWorkout);
+// router.get('/api/workouts/range', getRange)
+
+// router.put('/api/workouts/:id', addWorkout);
 
 
 
